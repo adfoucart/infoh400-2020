@@ -11,7 +11,6 @@ import com.pixelmed.dicom.AttributeTag;
 import com.pixelmed.dicom.CodeStringAttribute;
 import com.pixelmed.dicom.DicomException;
 import com.pixelmed.dicom.SOPClass;
-import com.pixelmed.dicom.SpecificCharacterSet;
 import com.pixelmed.dicom.StoredFilePathStrategy;
 import com.pixelmed.dicom.TagFromName;
 import com.pixelmed.dicom.UniqueIdentifierAttribute;
@@ -75,7 +74,7 @@ public class DICOMServices {
             { AttributeTag t = TagFromName.StudyInstanceUID; Attribute a = new UniqueIdentifierAttribute(t); a.addValue(studyUID); identifier.put(t,a); }
             new MoveSOPClassSCU(GlobalConfig.ORTHANC_HOST,GlobalConfig.ORTHANC_PORT,GlobalConfig.ORTHANC_AET,"MOVESCU","STORESCP",SOPClass.StudyRootQueryRetrieveInformationModelMove,identifier);
         }
-        catch (Exception ex) {
+        catch (DicomException | NullPointerException | ClassCastException | DicomNetworkException | IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

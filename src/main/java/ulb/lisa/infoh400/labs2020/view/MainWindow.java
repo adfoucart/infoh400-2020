@@ -44,6 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
     private ItemType itemType = null;
     
     private DICOMServices dicomServices = new DICOMServices();
+    private HL7Services hl7Services = new HL7Services();
     
     /**
      * Creates new form MainWindow

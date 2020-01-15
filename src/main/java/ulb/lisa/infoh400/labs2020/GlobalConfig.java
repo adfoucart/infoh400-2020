@@ -32,4 +32,5 @@ public class GlobalConfig {
         return nextADTMessageID;
     }
     
+    public static int HL7_LISTENING_PORT = 54321;
 }
