@@ -6,7 +6,6 @@
 package ulb.lisa.infoh400.labs2020.view;
 
 import be.fedict.commons.eid.client.BeIDCard;
-import be.fedict.commons.eid.client.BeIDCards;
 import be.fedict.commons.eid.client.CancelledException;
 import be.fedict.commons.eid.client.FileType;
 import be.fedict.commons.eid.consumer.Identity;
