@@ -147,7 +147,11 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        return familyname.toUpperCase() + " " + firstname + " (" + fmt.format(dateofbirth) + ")";
+        String dobtext = "unknown";
+        if( dateofbirth != null ){
+            dobtext = fmt.format(dateofbirth);
+        }
+        return familyname.toUpperCase() + " " + firstname + " (" + dobtext + ")";
     }
 
     public Doctor getDoctor() {

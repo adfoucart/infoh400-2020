@@ -5,6 +5,7 @@
  */
 package ulb.lisa.infoh400.labs2020.view;
 
+import java.awt.Color;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -137,14 +138,18 @@ public class FHIRSearchWindow extends javax.swing.JFrame {
 
     private void searchPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientButtonActionPerformed
         FHIRServices fhir = new FHIRServices();
-        List<Patient> found = fhir.searchPatientsByName(patientNameTextField.getText());
+        List<Patient> found = fhir.searchPatientsByName(patientNameTextField.getText(), fhirServerBaseTextField.getText());
         if( found.isEmpty() ){
             searchResultLabel.setText("No patient found.");
+            searchResultLabel.setBackground(Color.red);
+            searchResultLabel.setOpaque(true);
         }
         else{
             searchResultLabel.setText(found.size() + " patients found.");
+            searchResultLabel.setBackground(Color.green);
+            searchResultLabel.setOpaque(true);
         }
-        
+                
         EntityListModel<Patient> model = new EntityListModel(found);
         searchPatientResultsList.setModel(model);
     }//GEN-LAST:event_searchPatientButtonActionPerformed
@@ -160,6 +165,8 @@ public class FHIRSearchWindow extends javax.swing.JFrame {
         patientCtrl.create(selected);
         
         searchResultLabel.setText("Patient saved to database.");
+        searchResultLabel.setBackground(Color.yellow);
+        searchResultLabel.setOpaque(true);
     }//GEN-LAST:event_savePatientButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

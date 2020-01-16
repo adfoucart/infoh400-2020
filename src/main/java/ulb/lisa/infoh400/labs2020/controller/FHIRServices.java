@@ -20,13 +20,12 @@ import ulb.lisa.infoh400.labs2020.model.Person;
 public class FHIRServices {
     
     private static final FhirContext ctxt = FhirContext.forDstu3();
-    private final String serverBase = "http://fhirtest.uhn.ca/baseDstu3";
     private IGenericClient client = null;
     
     public FHIRServices(){
     }
     
-    public List<Patient> searchPatientsByName(String name){
+    public List<Patient> searchPatientsByName(String name, String serverBase){
         client = ctxt.newRestfulGenericClient(serverBase);
         
         Bundle results = client.search()
@@ -56,6 +55,7 @@ public class FHIRServices {
         personHIS.setDateofbirth(patientFhir.getBirthDate());
         patientHIS.setIdperson(personHIS);
         patientHIS.setPhonenumber(patientFhir.getTelecomFirstRep().getValue());
+        patientHIS.setStatus("active");
         
         return patientHIS;
     }
