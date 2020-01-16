@@ -10,6 +10,7 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import java.util.ArrayList;
 import java.util.List;
 import org.hl7.fhir.dstu3.model.Bundle;
+import org.hl7.fhir.dstu3.model.IdType;
 import ulb.lisa.infoh400.labs2020.model.Patient;
 import ulb.lisa.infoh400.labs2020.model.Person;
 
@@ -67,6 +68,9 @@ public class FHIRServices {
         patientFHIR.getNameFirstRep().addGiven(patientHIS.getIdperson().getFirstname());
         patientFHIR.setBirthDate(patientHIS.getIdperson().getDateofbirth());
         patientFHIR.addTelecom().setValue(patientHIS.getPhonenumber());
+        if( patientHIS.getIdpatient() != null ){
+            patientFHIR.setId(new IdType("Patient", String.valueOf(patientHIS.getIdpatient())));
+        }
         
         return patientFHIR;
     }

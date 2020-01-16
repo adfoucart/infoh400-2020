@@ -353,4 +353,17 @@ public class PersonJpaController implements Serializable {
         }
     }
     
+    public List<Person> findPersonEntitiesByFamilyname(String match){
+        EntityManager em = getEntityManager();
+        try {
+            List<Person> results = em.createNamedQuery("Person.findByFamilyname").setParameter("familyname", match).getResultList();
+            if( results.isEmpty() ) return null;
+            
+            return results;
+        }
+        catch( Exception e ){
+            return null;
+        }
+    }
+    
 }
