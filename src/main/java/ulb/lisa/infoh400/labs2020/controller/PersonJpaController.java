@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import ulb.lisa.infoh400.labs2020.controller.exceptions.IllegalOrphanException;
 import ulb.lisa.infoh400.labs2020.controller.exceptions.NonexistentEntityException;
 import ulb.lisa.infoh400.labs2020.model.Person;
@@ -335,6 +337,19 @@ public class PersonJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Person findDuplicate(Person p){
+        EntityManager em = getEntityManager();
+        try {
+            List results = em.createNamedQuery("Person.findDuplicate").setParameter("firstname", p.getFirstname()).setParameter("familyname", p.getFamilyname()).setParameter("dateofbirth", p.getDateofbirth()).getResultList();
+            if( results.isEmpty() ) return null;
+            
+            return (Person) results.get(0);
+        }
+        catch( Exception e ){
+            return null;
         }
     }
     
