@@ -458,6 +458,12 @@ public class MainWindow extends javax.swing.JFrame {
         EntityListModel<Patient> model = new EntityListModel(patients);
         
         itemsList.setModel(model);
+        
+        disableButtons();
+        editPatientButton.setEnabled(true);
+        deletePatientButton.setEnabled(true);
+        
+        itemType = ItemType.PATIENT;
     }
     
     /**
@@ -466,12 +472,6 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private void listPatientsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listPatientsButtonActionPerformed
         refreshPatientList();
-        
-        disableButtons();
-        editPatientButton.setEnabled(true);
-        deletePatientButton.setEnabled(true);
-        
-        itemType = ItemType.PATIENT;
     }//GEN-LAST:event_listPatientsButtonActionPerformed
 
     /**
@@ -482,6 +482,12 @@ public class MainWindow extends javax.swing.JFrame {
         EntityListModel<Doctor> model = new EntityListModel(doctors);
         
         itemsList.setModel(model);
+        
+        disableButtons();
+        editDoctorButton.setEnabled(true);
+        deleteDoctorButton.setEnabled(true);
+
+        itemType = ItemType.DOCTOR;
     }
     
     /**
@@ -490,12 +496,6 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private void listDoctorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listDoctorsButtonActionPerformed
         refreshDoctorList();
-        
-        disableButtons();
-        editDoctorButton.setEnabled(true);
-        deleteDoctorButton.setEnabled(true);
-
-        itemType = ItemType.DOCTOR;
     }//GEN-LAST:event_listDoctorsButtonActionPerformed
 
     /**
@@ -586,16 +586,16 @@ public class MainWindow extends javax.swing.JFrame {
         EntityListModel<Appointment> model = new EntityListModel(appointments);
         
         itemsList.setModel(model);
-    }
-    
-    private void listAppointmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAppointmentsButtonActionPerformed
-        refreshAppointmentList();
         
         disableButtons();
         editAppointmentButton.setEnabled(true);
         deleteAppointmentButton.setEnabled(true);
         
         itemType = ItemType.APPOINTMENT;
+    }
+    
+    private void listAppointmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAppointmentsButtonActionPerformed
+        refreshAppointmentList();
     }//GEN-LAST:event_listAppointmentsButtonActionPerformed
 
     private void editAppointmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAppointmentButtonActionPerformed
@@ -638,16 +638,16 @@ public class MainWindow extends javax.swing.JFrame {
         EntityListModel<Image> model = new EntityListModel(images);
         
         itemsList.setModel(model);
-    }
-    
-    private void listImagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listImagesButtonActionPerformed
-        refreshImageList();
         
         disableButtons();
         //editImageButton.setEnabled(true);
         //deleteImageButton.setEnabled(true);
         
         itemType = ItemType.IMAGE;
+    }
+    
+    private void listImagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listImagesButtonActionPerformed
+        refreshImageList();
     }//GEN-LAST:event_listImagesButtonActionPerformed
 
     private void itemsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsListMouseClicked

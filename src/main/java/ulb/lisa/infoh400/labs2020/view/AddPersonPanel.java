@@ -6,7 +6,6 @@
 package ulb.lisa.infoh400.labs2020.view;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ulb.lisa.infoh400.labs2020.GlobalConfig;
@@ -50,10 +49,12 @@ public class AddPersonPanel extends javax.swing.JPanel {
         
         person.setFamilyname(familynameTextField.getText());
         person.setFirstname(firstnameTextField.getText());
-        try {
-            person.setDateofbirth(GlobalConfig.dateFmt.parse(dateofbirthTextField.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(AddPersonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        if( !dateofbirthTextField.getText().isEmpty() ){
+            try {
+                person.setDateofbirth(GlobalConfig.dateFmt.parse(dateofbirthTextField.getText()));
+            } catch (ParseException ex) {
+                Logger.getLogger(AddPersonPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return person;
