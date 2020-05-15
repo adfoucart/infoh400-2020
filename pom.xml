@@ -13,6 +13,13 @@
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>    
+        <repository>
+            <id>e-Contract.be</id>
+            <url>https://www.e-contract.be/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -28,6 +35,17 @@
             <url>https://repo.maven.apache.org/maven2/</url>
         </pluginRepository>
     </pluginRepositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>be.fedict.commons-eid</groupId>
+                <artifactId>commons-eid-bom</artifactId>
+                <version>0.9.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -74,6 +92,28 @@
             <groupId>ca.uhn.hapi.fhir</groupId>
             <artifactId>hapi-fhir-structures-dstu3</artifactId>
             <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>be.fedict.commons-eid</groupId>
+            <artifactId>commons-eid-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>be.fedict.commons-eid</groupId>
+            <artifactId>commons-eid-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>be.fedict.commons-eid</groupId>
+            <artifactId>commons-eid-dialogs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>be.fedict.commons-eid</groupId>
+            <artifactId>commons-eid-jca</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

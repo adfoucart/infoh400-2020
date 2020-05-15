@@ -8,7 +8,6 @@ package ulb.lisa.infoh400.labs2020.view;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
@@ -45,8 +44,8 @@ public class AddAppointmentWindow extends javax.swing.JFrame {
         initComponents();
         
         // Setup Doctor & Patient List
-        DefaultComboBoxModel doctorsModel = new DefaultComboBoxModel((Vector) doctors);
-        DefaultComboBoxModel patientsModel = new DefaultComboBoxModel((Vector) patients);
+        DefaultComboBoxModel doctorsModel = new DefaultComboBoxModel(doctors.toArray());
+        DefaultComboBoxModel patientsModel = new DefaultComboBoxModel(patients.toArray());
         doctorComboBox.setModel(doctorsModel);
         patientComboBox.setModel(patientsModel);
         

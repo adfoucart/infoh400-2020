@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import ulb.lisa.infoh400.labs2020.controller.exceptions.IllegalOrphanException;
 import ulb.lisa.infoh400.labs2020.controller.exceptions.NonexistentEntityException;
 import ulb.lisa.infoh400.labs2020.model.Person;
@@ -347,6 +345,19 @@ public class PersonJpaController implements Serializable {
             if( results.isEmpty() ) return null;
             
             return (Person) results.get(0);
+        }
+        catch( Exception e ){
+            return null;
+        }
+    }
+    
+    public List<Person> findPersonEntitiesByFamilyname(String match){
+        EntityManager em = getEntityManager();
+        try {
+            List<Person> results = em.createNamedQuery("Person.findByFamilyname").setParameter("familyname", match).getResultList();
+            if( results.isEmpty() ) return null;
+            
+            return results;
         }
         catch( Exception e ){
             return null;

@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import ulb.lisa.infoh400.labs2020.GlobalConfig;
-import ulb.lisa.infoh400.labs2020.controller.exceptions.NonexistentEntityException;
 import ulb.lisa.infoh400.labs2020.model.Patient;
 import ulb.lisa.infoh400.labs2020.model.Person;
 

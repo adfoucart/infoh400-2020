@@ -5,9 +5,16 @@
  */
 package ulb.lisa.infoh400.labs2020.view;
 
+import be.fedict.commons.eid.client.BeIDCard;
+import be.fedict.commons.eid.client.CancelledException;
+import be.fedict.commons.eid.client.FileType;
+import be.fedict.commons.eid.consumer.Identity;
+import be.fedict.commons.eid.consumer.tlv.TlvParser;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.smartcardio.CardException;
 import ulb.lisa.infoh400.labs2020.GlobalConfig;
 import ulb.lisa.infoh400.labs2020.model.Person;
 
@@ -24,6 +31,10 @@ public class AddPersonPanel extends javax.swing.JPanel {
      */
     public AddPersonPanel() {
         initComponents();
+
+        if (!GlobalConfig.cards.hasCardTerminals()) {
+            loadFromeIDButton.setEnabled(false);
+        }
     }
     
     /**
@@ -75,6 +86,7 @@ public class AddPersonPanel extends javax.swing.JPanel {
         familynameTextField = new javax.swing.JTextField();
         firstnameTextField = new javax.swing.JTextField();
         dateofbirthTextField = new javax.swing.JFormattedTextField();
+        loadFromeIDButton = new javax.swing.JButton();
 
         jLabel1.setText("Family Name:");
 
@@ -84,31 +96,41 @@ public class AddPersonPanel extends javax.swing.JPanel {
 
         dateofbirthTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
+        loadFromeIDButton.setText("Load from eID");
+        loadFromeIDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadFromeIDButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(dateofbirthTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(firstnameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(familynameTextField))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(dateofbirthTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(firstnameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                .addComponent(familynameTextField))))
+                    .addComponent(loadFromeIDButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(loadFromeIDButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(familynameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,6 +146,26 @@ public class AddPersonPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadFromeIDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFromeIDButtonActionPerformed
+        if (!GlobalConfig.cards.hasBeIDCards()) {
+            System.out.println("No eID card in terminal.");
+        }
+        try {
+            BeIDCard card = GlobalConfig.cards.getOneBeIDCard();
+            byte[] idData = card.readFile(FileType.Identity);
+            Identity id = TlvParser.parse(idData, Identity.class);
+
+            Person p = new Person();
+            p.setFamilyname(id.getName());
+            p.setFirstname(id.getFirstName());
+            p.setDateofbirth(id.getDateOfBirth().getTime());
+            
+            setPerson(p);
+        } catch (CancelledException | CardException | IOException | InterruptedException ex) {
+            Logger.getLogger(AddPatientWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_loadFromeIDButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField dateofbirthTextField;
@@ -132,5 +174,6 @@ public class AddPersonPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton loadFromeIDButton;
     // End of variables declaration//GEN-END:variables
 }

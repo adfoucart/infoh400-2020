@@ -5,6 +5,7 @@
  */
 package ulb.lisa.infoh400.labs2020;
 
+import be.fedict.commons.eid.client.BeIDCards;
 import java.text.SimpleDateFormat;
 
 /**
@@ -33,4 +34,8 @@ public class GlobalConfig {
     }
     
     public static int HL7_LISTENING_PORT = 54321;
+    
+    public static BeIDCards cards = new BeIDCards();
+    public static String CONSENT_FORM = "I, [PATIENT], give permission to the Hospital to store my personal data according to the data usage agreement.";
+    public static String CONSENT_FORM_DIRECTORY = "C:\\Users\\Administrateur\\infoh400-labs2020\\src\\main\\resources\\consent";
 }
